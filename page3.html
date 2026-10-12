@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: Georgia, serif;
+    background:
+        radial-gradient(ellipse at top left, #f8e9d7, transparent 55%),
+        #f3e5d5;
+    color: #64172d;
+}
+
+.card {
+    width: min(900px, 92vw);
+    min-height: 530px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 45px 25px;
+    border: 2px solid #d8b77d;
+    border-radius: 8px;
+    background: #fff8ec;
+    box-shadow: 0 15px 45px #6b24301f;
+}
+
+.decor {
+    position: absolute;
+    font-size: 35px;
+}
+
+.top-left {
+    top: 18px;
+    left: 20px;
+}
+
+.top-right {
+    top: 18px;
+    right: 20px;
+}
+
+.bottom-left {
+    bottom: 18px;
+    left: 20px;
+}
+
+.bottom-right {
+    bottom: 18px;
+    right: 20px;
+}
+
+.tag {
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #a47a50;
+    margin-bottom: 20px;
+}
+
+h1 {
+    max-width: 750px;
+    font-size: clamp(38px, 7vw, 76px);
+    line-height: 1.12;
+    margin: 0;
+    font-weight: bold;
+    text-shadow: 2px 2px #ead5bd;
+}
+
+.heart {
+    color: #a52142;
+}
+
+.question {
+    font-size: 27px;
+    margin-top: 28px;
+    font-style: italic;
+}
+
+.buttons {
+    width: min(440px, 90%);
+    height: 125px;
+    margin-top: 10px;
+    position: relative;
+}
+
+button {
+    border: none;
+    border-radius: 30px;
+    padding: 14px 36px;
+    font-size: 17px;
+    font-family: Georgia, serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+#yesBtn {
+    position: absolute;
+    left: 15%;
+    top: 25px;
+    background: #751d35;
+    color: #fff8ec;
+    box-shadow: 0 5px 12px #751d3530;
+}
+
+#yesBtn:hover {
+    background: #982b49;
+    transform: scale(1.07);
+}
+
+#noBtn {
+    position: absolute;
+    left: 58%;
+    top: 25px;
+    background: #ead8c4;
+    color: #64172d;
+    border: 1px solid #d8b77d;
+    white-space: nowrap;
+}
+
+#message {
+    min-height: 28px;
+    margin-top: 0;
+    font-size: 17px;
+    color: #9b3450;
+    font-style: italic;
+}
+
+@media (max-width: 500px) {
+    .card {
+        min-height: 470px;
+        padding: 35px 15px;
+    }
+
+    .question {
+        font-size: 23px;
+    }
+
+    .decor {
+        font-size: 27px;
+    }
+
+    button {
+        padding: 12px 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+
+    <span class="decor top-left">🌷</span>
+    <span class="decor top-right">♡</span>
+    <span class="decor bottom-left">💌</span>
+    <span class="decor bottom-right">🌸</span>
+
+    <div class="tag">Something special for you</div>
+
+    <h1>
+        I HAVE A<br>
+        SURPRISE FOR YOU <span class="heart">♥</span>
+    </h1>
+
+    <div class="question">Wanna see? 🥹</div>
+
+    <div class="buttons" id="playArea">
+        <button id="yesBtn" onclick="sayYes()">YES ❤️</button>
+        <button id="noBtn" type="button">NO 🙈</button>
+    </div>
+
+    <div id="message"></div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const playArea = document.getElementById("playArea");
+const message = document.getElementById("message");
+
+const messages = [
+    "Are you sure, baby? 🥺",
+    "Nice try, baby 😂",
+    "Hehe, catch me first! 💋",
+    "Nope, not that easy! ❤️",
+    "You really thought you could click me? 😜",
+    "Only YES is allowed, princuuu! 💕"
+];
+
+let attempts = 0;
+
+function moveNoButton() {
+    const maxX = Math.max(0, playArea.clientWidth - noBtn.offsetWidth);
+    const maxY = Math.max(0, playArea.clientHeight - noBtn.offsetHeight);
+
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    message.textContent = messages[attempts % messages.length];
+    attempts++;
+}
+
+// Moves away when the user tries to hover, click, or touch it.
+noBtn.addEventListener("pointerenter", moveNoButton);
+noBtn.addEventListener("pointerdown", (event) => {
+    event.preventDefault();
+    moveNoButton();
+});
+
+function sayYes() {
+    document.querySelector("h1").innerHTML =
+        "YAYYYY! <span class='heart'>♥</span>";
+
+    document.querySelector(".question").textContent =
+        "I knew you'd say YES, baby! 🥹❤️";
+
+    playArea.style.display = "none";
+    message.textContent = "Your next surprise is waiting... 💌";
+
+    // We'll connect this to Page 4 when we build it.
+}
+</script>
+</body>
+</html>

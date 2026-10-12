@@ -1,0 +1,430 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Princuuu ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #e9e2d2;
+    font-family: Georgia, serif;
+}
+
+/* Knitted cream background */
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+    min-height: 500px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee8da;
+    background-image:
+        repeating-linear-gradient(
+            45deg,
+            transparent 0 7px,
+            rgba(151, 135, 112, .15) 8px 10px,
+            transparent 11px 17px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent 0 7px,
+            rgba(255,255,255,.7) 8px 10px,
+            transparent 11px 17px
+        );
+    border: 10px solid #fffaf0;
+    box-shadow: inset 0 0 0 2px #d7cbb6;
+}
+
+/* Decorative corner flowers */
+.flower {
+    position: absolute;
+    z-index: 1;
+    font-size: clamp(130px, 20vw, 280px);
+    line-height: 1;
+    filter: drop-shadow(4px 8px 5px rgba(64, 0, 15, .2));
+    user-select: none;
+    pointer-events: none;
+}
+
+.flower.top {
+    top: -55px;
+    right: -45px;
+    transform: rotate(18deg);
+}
+
+.flower.bottom {
+    bottom: -65px;
+    left: -45px;
+    transform: rotate(-24deg);
+}
+
+.flower.small {
+    font-size: clamp(65px, 9vw, 115px);
+    right: 5%;
+    bottom: 3%;
+    transform: rotate(15deg);
+}
+
+/* Envelope area */
+.envelope-wrap {
+    position: relative;
+    z-index: 3;
+    width: min(650px, 76vw);
+    height: min(440px, 61vh);
+    min-height: 290px;
+    perspective: 1200px;
+    transform: rotate(-5deg);
+    transition: transform .6s ease;
+}
+
+.envelope-wrap.opened {
+    transform: rotate(-2deg) translateY(-12px);
+}
+
+/* Envelope body */
+.envelope {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+    border-radius: 3px;
+    background: linear-gradient(145deg, #a00030, #76001e 68%, #5d0018);
+    box-shadow:
+        0 24px 40px rgba(52, 0, 15, .32),
+        inset 0 2px 5px rgba(255,255,255,.12);
+}
+
+/* Folded side sections */
+.envelope::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        145deg,
+        transparent 49.5%,
+        rgba(48,0,13,.24) 50%,
+        transparent 51%
+    );
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.envelope-front {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    background: linear-gradient(
+        32deg,
+        #79001f 0%,
+        #8c0027 50%,
+        #68001c 100%
+    );
+    clip-path: polygon(0 0, 50% 60%, 100% 0, 100% 100%, 0 100%);
+    pointer-events: none;
+}
+
+/* Top triangular flap */
+.flap {
+    position: absolute;
+    inset: 0;
+    z-index: 7;
+    transform-origin: top center;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(.2,.7,.2,1);
+    background: linear-gradient(160deg, #a00030, #72001e);
+    clip-path: polygon(0 0, 100% 0, 50% 60%);
+    filter: drop-shadow(0 7px 4px rgba(48,0,12,.18));
+}
+
+/* Letter inside envelope */
+.letter {
+    position: absolute;
+    z-index: 5;
+    left: 7%;
+    top: 8%;
+    width: 86%;
+    height: 84%;
+    background: #fffdf9;
+    color: #85182a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(40,0,10,.18);
+    transform: translateY(18%);
+    opacity: 0;
+    transition:
+        transform 1.2s cubic-bezier(.2,.75,.2,1) .35s,
+        opacity .5s ease .3s;
+}
+
+.letter-inner {
+    max-width: 100%;
+}
+
+.letter h1 {
+    font-family: "Brush Script MT", "Segoe Script", cursive;
+    font-size: clamp(35px, 5.2vw, 67px);
+    font-weight: normal;
+    line-height: 1.2;
+    color: #87182c;
+}
+
+.letter .subtitle {
+    margin-top: 22px;
+    font-size: clamp(15px, 2vw, 22px);
+    color: #a25a60;
+    font-style: italic;
+}
+
+/* Wax seal */
+.seal {
+    position: absolute;
+    z-index: 10;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(78px, 10vw, 112px);
+    height: clamp(78px, 10vw, 112px);
+    border-radius: 48% 52% 53% 47%;
+    border: 4px solid #e9dcb1;
+    color: #fff1cf;
+    background:
+        radial-gradient(circle at 35% 28%, #f5ebc8, #cdbd8b 58%, #a89461);
+    box-shadow:
+        0 5px 10px rgba(0,0,0,.3),
+        inset 0 0 0 3px rgba(255,255,255,.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 37px;
+    cursor: pointer;
+    transition: opacity .3s, transform .4s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.seal:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+}
+
+.tap-hint {
+    position: absolute;
+    z-index: 12;
+    left: 50%;
+    bottom: -62px;
+    transform: translateX(-50%) rotate(5deg);
+    white-space: nowrap;
+    color: #76132a;
+    font-family: "Brush Script MT", "Segoe Script", cursive;
+    font-size: clamp(21px, 3vw, 29px);
+    text-shadow: 0 1px white;
+    transition: opacity .3s;
+}
+
+/* Open state */
+.envelope-wrap.opened .flap {
+    transform: rotateX(180deg);
+    z-index: 2;
+}
+
+.envelope-wrap.opened .letter {
+    transform: translateY(-43%);
+    opacity: 1;
+    z-index: 8;
+}
+
+.envelope-wrap.opened .seal {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(.4);
+}
+
+.envelope-wrap.opened .tap-hint {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Little hearts */
+.heart {
+    position: absolute;
+    z-index: 2;
+    color: #8d1630;
+    font-size: 30px;
+    opacity: .85;
+    user-select: none;
+    pointer-events: none;
+}
+
+.heart.one { top: 17%; left: 23%; transform: rotate(-15deg); }
+.heart.two { bottom: 18%; right: 24%; transform: rotate(14deg); }
+.heart.three { top: 22%; right: 28%; font-size: 22px; }
+
+/* Small screens */
+@media (max-width: 600px) {
+    .scene {
+        border-width: 6px;
+    }
+
+    .envelope-wrap {
+        width: 88vw;
+        height: 55vw;
+        min-height: 260px;
+        max-height: 360px;
+    }
+
+    .flower.top {
+        top: -20px;
+        right: -40px;
+    }
+
+    .flower.bottom {
+        bottom: -35px;
+        left: -35px;
+    }
+
+    .letter {
+        padding: 12px;
+    }
+
+    .letter .subtitle {
+        margin-top: 12px;
+    }
+
+    .tap-hint {
+        bottom: -45px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition-duration: .01ms !important;
+    }
+}
+.next-button {
+    position: fixed;
+    bottom: 28px;
+    left: 28px;
+    z-index: 50;
+
+    display: none;
+    padding: 12px 26px;
+
+    background: #f3e2c3;
+    color: #76001e;
+    border: 2px solid #c8ad7e;
+    border-radius: 8px;
+
+    font-family: Georgia, serif;
+    font-size: 17px;
+    cursor: pointer;
+
+    box-shadow: 0 5px 14px rgba(0,0,0,.2);
+    transition: transform .2s, background .2s;
+}
+
+.next-button:hover {
+    transform: translateY(-3px);
+    background: #fff5df;
+}
+
+.next-button.visible {
+    display: block;
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+    <div class="flower top">🌺</div>
+    <div class="flower bottom">🌺</div>
+    <div class="flower small">🌹</div>
+
+    <div class="heart one">♡</div>
+    <div class="heart two">♡</div>
+    <div class="heart three">♥</div>
+
+    <div class="envelope-wrap" id="envelopeWrap">
+
+        <div class="envelope">
+
+            <div class="letter">
+                <div class="letter-inner">
+                    <h1>Happiest Birthday<br>Princuuu Babyyy ❤️</h1>
+                    <div class="subtitle">
+                        A little letter, made just for you ♡
+                    </div>
+                </div>
+            </div>
+
+            <div class="envelope-front"></div>
+            <div class="flap"></div>
+
+            <button
+                class="seal"
+                id="seal"
+                aria-label="Open your birthday letter"
+                onclick="openLetter()"
+            >❀</button>
+
+        </div>
+
+        <div class="tap-hint" id="tapHint">
+            A little something for you… tap to open ♡
+        </div>
+
+    </div>
+<button
+    class="next-button"
+    id="nextButton"
+    onclick="goToNextPage()"
+>
+    Next →
+</button>
+
+</div>
+
+<script>
+function openLetter() {
+    const envelope = document.getElementById("envelopeWrap");
+
+    if (envelope.classList.contains("opened")) {
+        return;
+    }
+
+    envelope.classList.add("opened");
+
+    // Show Next after the letter-opening animation
+    setTimeout(() => {
+        document.getElementById("nextButton")
+            .classList.add("visible");
+    }, 1500);
+}
+
+function goToNextPage() {
+    // We'll connect this to Page 3 when we build it.
+    alert("Your next surprise is coming soon ❤️");
+}
+</script>
+
+</body>
+</html>
